@@ -4,18 +4,24 @@
 // developer => 1500
 // default => 1000
 function calculateSalary(role) {
-  switch (true) {
-    case role === `ceo`:
-      return `The Ceo salary is : 2200€`
-    case role === `manager`:
-      return `The Manager salary is : 1800€`
-    case role === `cto`:
-      return `The Cto salary is : 1800€`
-    case role === `developer`:
-      return `The developer salary of is : 1500€`
+  let salary = 0;
+  switch (role) {
+    case `ceo`:
+      salary = 2200;
+      break;
+    case `manager`:
+      salary = 1800;
+      break;
+    case `cto`:
+      salary = 1800;
+      break;
+    case `developer`:
+      salary = 1500;
+      break;
     default:
-      return `The default salary is : 1500€`
+      salary = 1500;
     }
+    return ` Per il ruolo ${role} lo stipendio è: ${salary}€`
   }
     
   

@@ -21,17 +21,11 @@ class AreaCalculator {
   static calculate = (geometricShape) => {
     let area = 0;
     if (geometricShape instanceof Square) {
-      area = geometricShape.side ** 2;
-      return area;
+        return area = geometricShape.side ** 2;
     } else if (geometricShape instanceof Rectangle) {
-      area = geometricShape.width * geometricShape.height;
-      return area;
+        return area = geometricShape.width * geometricShape.height;
     } else if (geometricShape instanceof Circle) {
-      area = (geometricShape.radius ** 2) * Math.PI;
-      return area;
-    } else {
-      const err = new Error("Invalid input: insert a valid geometric shape (Circle, Rectangle or Square)");
-      return err;
+        return area = geometricShape.radius ** 2 * Math.PI;
     }
   };
 }
@@ -43,6 +37,3 @@ const circle = new Circle(5);
 console.log(AreaCalculator.calculate(square));
 console.log(AreaCalculator.calculate(rectangle));
 console.log(AreaCalculator.calculate(circle));
-
-
-

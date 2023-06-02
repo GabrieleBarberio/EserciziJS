@@ -1,0 +1,59 @@
+<html>
+  <body>
+    <div id="container" style="display: flex; align-items: center;"></div>
+  </body>
+</html>
+
+<script>
+  //variabile collegata al container del documento
+  const $container = document.getElementById("container")
+  // centralizzazione dei dati
+  const state = {
+    todo: []
+  }
+  // Gestione della chiamata
+async function fetchData() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos/4");
+  try {
+    if(response.ok){
+    const data = await response.json(); // trasformo il json da stringa json a oggetto js
+    state.todo = data;
+    }else{
+      console.log(response)
+    }
+  } catch (error) {
+    console.log(error)    
+  }  
+}
+// Funzione per creare l'H2
+const generateH2 = (todo) => {
+  // Creazione dell'elemento <h2>
+  const h2 = document.createElement("h2");
+  // scrivo in h2 il valore che mi interessa prendendolo da un ogggetto che passero come parametro
+  h2.innerText = todo.title;
+  // append dell'h2 a $container
+  $container.appendChild(h2);
+  
+}
+
+const generateCheckBox = (todo) =>{
+   // Creazione dell'elemento <input>
+  const checkbox = document.createElement("input");
+  //gli attribuisco il tipo type="checkbox"
+  checkbox.type = "checkbox";
+  //gli atrtibuisco dinamicamente il valore di checked tramite il valore dell'oggetto che passerò come param
+  checkbox.checked = todo.completed;
+  //append del checkbox in container
+  $container.appendChild(checkbox);
+}
+
+// Funzione pche triggera l'intero processo 
+const init = async () => {
+    await fetchData();
+    generateH2(state.todo)
+    generateCheckBox(state.todo)
+}
+
+// Chiamata alla funzione principale
+init();
+</script>

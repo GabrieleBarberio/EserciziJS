@@ -1,0 +1,77 @@
+<html>
+  <body>
+    <div id="container" style="display: flex; align-items: center"></div>
+
+    <script>
+      const $container = document.getElementById("container");
+//Centralizzazione dei dati
+      const state = {
+        todos: [],
+      };
+
+
+
+//Manipolo i dati per generare ogni elemento della lista
+
+      const generateTemplateHTML = (item) => {
+            const liItem = document.createElement("li")
+            liItem.classList.add("todo-item");
+            liItem.innerHTML = item.title.toString();
+            // console.log(item.title);
+            return liItem;
+      };
+
+//Tramite dichiaro una funzione che prende come callback la funzione delegata alla creazione dei list item per generare l'intera lista
+
+      const renderList = () => {
+        const ulDiv = document.createElement("ul");
+        ulDiv.classList.add("todo-list");
+         state.todos.map((item) => {
+          const liItem = generateTemplateHTML(item)
+          ulDiv.appendChild(liItem)
+        })
+         $container.append(ulDiv);
+        };
+
+// GESTIONE DELLA CHIAMATA
+
+      const fetchData = async () => {
+        try {
+          const URL = "https://jsonplaceholder.typicode.com/todos";
+          const response = await fetch(URL);
+          if (response.ok) {
+            const data = await response.json();
+            // console.log(data);
+            state.todos = data;
+          } else {
+            console.log(response);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+
+// FUNZIONE DI INIT CHE EFFETTUA LA CHIAMATA E POI RENDERIZZA LA LISTA
+
+      const init = async () => {
+        await fetchData();
+        renderList();
+      };
+
+
+      init();
+
+
+      // const generateTemplateHTML = (item) => {
+      //   return `
+      //     <li>${item.title}</li>`;
+      // };
+
+      // const renderList = () => {
+      //   const HTML = state.todos.map((item) => generateTemplateHTML(item)).join(""); 
+      //     $container.innerHTML = `<ul>${HTML}</ul>`;
+      // };
+    </script>
+  </body>
+</html>

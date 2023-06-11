@@ -1,0 +1,58 @@
+<html>
+  <body>
+    <div id="container">
+      <form>
+        <div>
+          <label>Title</label>
+          <input type="text" id="todo-title" />
+        </div>
+        <div>
+          <label>Completed</label>
+          <input type="checkbox" id="todo-completed" />
+        </div>
+
+        <button type="submit" id="submit-todo"></button>
+      </form>
+    </div>
+  </body>
+</html>
+
+<script>
+
+  const $formInput = document.querySelectorAll("input");
+  const $form = document.querySelector("form");
+  const URL = 'https://jsonplaceholder.typicode.com/posts';
+
+  const state = {
+    post:{}
+}
+
+$formInput.forEach(($input) => {
+  $input.addEventListener("input", (event) => {
+    const { id, value, type } = event.target;
+    if (type === "checkbox") {
+      state.post[id] = event.target.checked;
+    } else {
+      state.post[id] = value;
+    }
+  });
+});
+
+$form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch(URL, {
+      method: "POST",
+      body: JSON.stringify(state.post),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+    });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+
+</script>
